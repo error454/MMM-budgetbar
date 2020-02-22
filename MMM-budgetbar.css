@@ -1,0 +1,12 @@
+.bar_table {
+  line-height: 0px;
+}
+.bar_container {
+  margin: 0px;
+  width: 100px;
+  height: 15px;
+}
+
+.bar_text {
+  font-size: 14px;
+}
