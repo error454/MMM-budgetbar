@@ -11,8 +11,7 @@ String.prototype.hashCode = function() {
 };
 
 function updateGraph(module, payload){
-    if(Object.keys(module.bars).length == 0)
-    {
+    if(Object.keys(module.bars).length == 0){
         for(var budget in module.config.budgets){
             var budget_name = module.config.budgets[budget];
             var bar = new ProgressBar.Line("[id='" + budget_name.hashCode() + "']", {
@@ -21,7 +20,7 @@ function updateGraph(module, payload){
                 duration: 1400,
                 color: '#FFEA82',
                 trailColor: '#eee',
-                trailWidth: 10,
+                trailWidth: 15,
                 from: {color: '#00FF00'},
                 to: {color: '#FF0000'},
                 step: (state, bar) => {
@@ -56,8 +55,14 @@ Module.register("MMM-budgetbar",{
     },
 
     getDom: function() {
-        var outer = document.createElement("table");
-        outer.classList.add("bar_table");
+	var outer = document.createElement("div");
+	outer.classList.add("medium");
+	outer.classList.add("bar_title");
+	outer.innerHTML = this.config.title;
+	outer.appendChild(document.createElement("hr"));
+
+        var table = document.createElement("table");
+        table.classList.add("bar_table");
 
         for(var budget in this.config.budgets){
             var tr = document.createElement("tr");
@@ -77,8 +82,10 @@ Module.register("MMM-budgetbar",{
             tr.appendChild(tdTitle);
             tr.appendChild(tdBar);
             tr.appendChild(tdValue);
-            outer.appendChild(tr);
+            table.appendChild(tr);
         }
+
+	outer.appendChild(table);
         
         return outer;
     },
